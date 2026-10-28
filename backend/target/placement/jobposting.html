@@ -1,0 +1,600 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Postings | PlacementPortal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        header {
+            background: #0f172a;
+            color: white;
+            padding: 20px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            background: #334155;
+            padding: 10px 16px;
+            border-radius: 6px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #0000000d;
+        }
+
+        h1 {
+            color: #0f172a;
+            margin-top: 0;
+        }
+
+        h3 {
+            margin-top: 0;
+            color: #1e40af;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 85px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        button {
+            border: none;
+            border-radius: 6px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 4px 3px 4px 0;
+        }
+
+        .primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .edit {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .delete {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .search-row input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 950px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 13px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status.closed {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status.upcoming {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        #message {
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        .note {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media (max-width: 750px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>PlacementPortal</h2>
+    <a href="dashboard.html">← Back to Dashboard</a>
+</header>
+
+<main class="container">
+    <h1>Job Postings Management</h1>
+    <p>Manage job vacancies and recruitment opportunities.</p>
+
+    <section class="card">
+        <h3 id="formTitle">Add New Job Posting</h3>
+
+        <form id="jobForm">
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="jobId">Job ID *</label>
+                    <input id="jobId" type="number" min="1" step="1"
+                           placeholder="Example: 101" required>
+                </div>
+
+                <div class="field">
+                    <label for="companyId">Company ID *</label>
+                    <input id="companyId" type="number" min="1" step="1"
+                           placeholder="Example: 1" required>
+                </div>
+
+                <div class="field">
+                    <label for="jobTitle">Job Title *</label>
+                    <input id="jobTitle" type="text"
+                           placeholder="Software Developer" required>
+                </div>
+
+                <div class="field">
+                    <label for="jobType">Job Type *</label>
+                    <select id="jobType" required>
+                        <option value="">Select job type</option>
+                        <option>Full-time</option>
+                        <option>Part-time</option>
+                        <option>Internship</option>
+                        <option>Contract</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="location">Job Location *</label>
+                    <input id="location" type="text"
+                           placeholder="Chennai" required>
+                </div>
+
+                <div class="field">
+                    <label for="package">Annual Package (LPA) *</label>
+                    <input id="package" type="number" min="0" step="0.01"
+                           placeholder="Example: 6.5" required>
+                </div>
+
+                <div class="field">
+                    <label for="eligibility">Eligibility *</label>
+                    <input id="eligibility" type="text"
+                           placeholder="B.E. / B.Tech, minimum 7 CGPA" required>
+                </div>
+
+                <div class="field">
+                    <label for="vacancies">Number of Vacancies *</label>
+                    <input id="vacancies" type="number" min="1" step="1"
+                           placeholder="10" required>
+                </div>
+
+                <div class="field">
+                    <label for="deadline">Application Deadline *</label>
+                    <input id="deadline" type="date" required>
+                </div>
+
+                <div class="field">
+                    <label for="jobStatus">Job Status *</label>
+                    <select id="jobStatus" required>
+                        <option value="Open">Open</option>
+                        <option value="Upcoming">Upcoming</option>
+                        <option value="Closed">Closed</option>
+                    </select>
+                </div>
+
+                <div class="field full-width">
+                    <label for="description">Job Description</label>
+                    <textarea id="description"
+                              placeholder="Enter job responsibilities and requirements"></textarea>
+                </div>
+
+            </div>
+
+            <br>
+            <button class="primary" type="submit" id="submitButton">
+                Add Job Posting
+            </button>
+
+            <button class="secondary" type="button" onclick="resetForm()">
+                Clear Form
+            </button>
+
+            <p id="message" role="status"></p>
+        </form>
+    </section>
+
+    <section class="card">
+        <h3>Available Job Postings</h3>
+
+        <div class="search-row">
+            <input id="searchInput" type="search"
+                   placeholder="Search by job ID, company ID, title, or location"
+                   oninput="renderJobs()">
+
+            <button class="primary" type="button" onclick="renderJobs()">
+                Search
+            </button>
+
+            <button class="secondary" type="button" onclick="showAllJobs()">
+                Show All
+            </button>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Job ID</th>
+                        <th>Company ID</th>
+                        <th>Job Title</th>
+                        <th>Type</th>
+                        <th>Location</th>
+                        <th>Package (LPA)</th>
+                        <th>Vacancies</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="jobTableBody"></tbody>
+            </table>
+        </div>
+
+        <p id="recordCount" class="note"></p>
+        <p class="note">
+            Job postings are loaded from the placement backend.
+        </p>
+    </section>
+</main>
+
+<script src="placement-api.js"></script>
+<script>
+
+    let jobs = [];
+    let editingJobId = null;
+
+    const jobForm = document.getElementById("jobForm");
+    const message = document.getElementById("message");
+
+    async function loadJobs() {
+        try {
+            jobs = await placementApi.list("jobs");
+            renderJobs();
+            return true;
+        } catch (error) {
+            jobs = [];
+            renderJobs();
+            message.textContent = error.message;
+            return false;
+        }
+    }
+
+    function getFormData() {
+        return {
+            id: Number(document.getElementById("jobId").value),
+            companyId: Number(document.getElementById("companyId").value),
+            title: document.getElementById("jobTitle").value.trim(),
+            type: document.getElementById("jobType").value,
+            location: document.getElementById("location").value.trim(),
+            packageLpa: Number(document.getElementById("package").value),
+            eligibility: document.getElementById("eligibility").value.trim(),
+            vacancies: Number(document.getElementById("vacancies").value),
+            deadline: document.getElementById("deadline").value,
+            status: document.getElementById("jobStatus").value,
+            description: document.getElementById("description").value.trim()
+        };
+    }
+
+    jobForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const job = getFormData();
+
+        if (!Number.isInteger(job.id) || job.id <= 0 ||
+            !Number.isInteger(job.companyId) || job.companyId <= 0) {
+            message.textContent = "Job ID and Company ID must be positive integers.";
+            return;
+        }
+
+        if (!Number.isInteger(job.vacancies) || job.vacancies < 1) {
+            message.textContent = "Vacancies must be a positive whole number.";
+            return;
+        }
+
+        if (!Number.isFinite(job.packageLpa) || job.packageLpa < 0) {
+            message.textContent = "Enter a valid package amount.";
+            return;
+        }
+
+        const wasEditing = editingJobId !== null;
+        try {
+            if (wasEditing) {
+                job.id = editingJobId;
+                await placementApi.update("jobs", editingJobId, job);
+            } else {
+                await placementApi.create("jobs", job);
+            }
+
+            resetForm(false);
+            if (await loadJobs()) {
+                message.textContent = wasEditing
+                    ? "Job posting updated successfully."
+                    : "Job posting added successfully.";
+            } else {
+                message.textContent =
+                    "Job posting was saved, but the list could not be refreshed.";
+            }
+        } catch (error) {
+            message.textContent = error.message;
+        }
+    });
+
+    function renderJobs() {
+        const tbody = document.getElementById("jobTableBody");
+        const query = document.getElementById("searchInput")
+            .value.trim().toLowerCase();
+
+        const filtered = jobs.filter(job => [
+            job.id,
+            job.companyId,
+            job.title,
+            job.type,
+            job.location,
+            job.status
+        ].some(value => String(value ?? "").toLowerCase().includes(query)));
+
+        tbody.replaceChildren();
+
+        if (filtered.length === 0) {
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+
+            cell.colSpan = 10;
+            cell.textContent = query
+                ? "No matching job postings found."
+                : "No job postings added yet.";
+
+            row.appendChild(cell);
+            tbody.appendChild(row);
+        }
+
+        filtered.forEach(job => {
+            const row = document.createElement("tr");
+
+            const values = [
+                job.id,
+                job.companyId,
+                job.title,
+                job.type,
+                job.location,
+                Number(job.packageLpa).toFixed(2),
+                job.vacancies,
+                job.deadline,
+                job.status
+            ];
+
+            values.forEach((value, index) => {
+                const cell = document.createElement("td");
+
+                if (index === 8) {
+                    const badge = document.createElement("span");
+                    badge.className = "status";
+
+                    if (job.status === "Closed") {
+                        badge.classList.add("closed");
+                    } else if (job.status === "Upcoming") {
+                        badge.classList.add("upcoming");
+                    }
+
+                    badge.textContent = value;
+                    cell.appendChild(badge);
+                } else {
+                    cell.textContent = value ?? "";
+                }
+
+                row.appendChild(cell);
+            });
+
+            const actions = document.createElement("td");
+
+            const editButton = document.createElement("button");
+            editButton.textContent = "Edit";
+            editButton.className = "edit";
+            editButton.type = "button";
+            editButton.addEventListener("click", () => editJob(job.id));
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "delete";
+            deleteButton.type = "button";
+            deleteButton.addEventListener("click", () => deleteJob(job.id));
+
+            actions.append(editButton, deleteButton);
+            row.appendChild(actions);
+            tbody.appendChild(row);
+        });
+
+        document.getElementById("recordCount").textContent =
+            "Showing " + filtered.length + " of " + jobs.length + " job posting(s).";
+    }
+
+    function editJob(id) {
+        const job = jobs.find(item => item.id === id);
+        if (!job) return;
+
+        editingJobId = id;
+
+        document.getElementById("jobId").value = job.id;
+        document.getElementById("jobId").readOnly = true;
+        document.getElementById("companyId").value = job.companyId;
+        document.getElementById("jobTitle").value = job.title;
+        document.getElementById("jobType").value = job.type;
+        document.getElementById("location").value = job.location;
+        document.getElementById("package").value = job.packageLpa;
+        document.getElementById("eligibility").value = job.eligibility;
+        document.getElementById("vacancies").value = job.vacancies;
+        document.getElementById("deadline").value = job.deadline;
+        document.getElementById("jobStatus").value = job.status;
+        document.getElementById("description").value = job.description || "";
+
+        document.getElementById("formTitle").textContent = "Update Job Posting";
+        document.getElementById("submitButton").textContent = "Update Job Posting";
+        message.textContent = "Edit the details and select Update Job Posting.";
+
+        document.getElementById("jobForm").scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+
+    async function deleteJob(id) {
+        const job = jobs.find(item => item.id === id);
+        if (!job) return;
+
+        if (!confirm("Delete job posting " + id + " - " + job.title + "?")) {
+            return;
+        }
+
+        try {
+            await placementApi.remove("jobs", id);
+            if (editingJobId === id) {
+                resetForm(false);
+            }
+            if (await loadJobs()) {
+                message.textContent = "Job posting deleted successfully.";
+            } else {
+                message.textContent =
+                    "Job posting was deleted, but the list could not be refreshed.";
+            }
+        } catch (error) {
+            message.textContent = error.message;
+        }
+    }
+
+    function resetForm(clearMessage = true) {
+        jobForm.reset();
+        editingJobId = null;
+
+        document.getElementById("jobId").readOnly = false;
+        document.getElementById("formTitle").textContent = "Add New Job Posting";
+        document.getElementById("submitButton").textContent = "Add Job Posting";
+
+        if (clearMessage) {
+            message.textContent = "";
+        }
+    }
+
+    function showAllJobs() {
+        document.getElementById("searchInput").value = "";
+        renderJobs();
+    }
+
+    loadJobs();
+</script>
+
+</body>
+</html>

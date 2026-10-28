@@ -1,0 +1,587 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students | PlacementPortal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        header {
+            background: #0f172a;
+            color: white;
+            padding: 20px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        header a {
+            color: white;
+            background: #334155;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #0000000d;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #0f172a;
+        }
+
+        h3 {
+            margin-top: 0;
+            color: #1d4ed8;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 4px 3px 4px 0;
+        }
+
+        .primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .edit {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .delete {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .search-row input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 850px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 13px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        #message {
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        .note {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        @media (max-width: 750px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>PlacementPortal</h2>
+    <a href="dashboard.html">← Back to Dashboard</a>
+</header>
+
+<main class="container">
+
+    <h1>Students Management</h1>
+    <p>Manage student profiles and placement eligibility.</p>
+
+    <section class="card">
+        <h3 id="formTitle">Add New Student</h3>
+
+        <form id="studentForm">
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="studentId">Student ID *</label>
+                    <input type="number" id="studentId"
+                           min="1" step="1" required
+                           placeholder="Example: 101">
+                </div>
+
+                <div class="field">
+                    <label for="studentName">Full Name *</label>
+                    <input type="text" id="studentName"
+                           required maxlength="100"
+                           placeholder="Enter student name">
+                </div>
+
+                <div class="field">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email"
+                           required maxlength="150"
+                           placeholder="student@example.com">
+                </div>
+
+                <div class="field">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone"
+                           maxlength="20"
+                           placeholder="Enter phone number">
+                </div>
+
+                <div class="field">
+                    <label for="department">Department *</label>
+                    <select id="department" required>
+                        <option value="">Select department</option>
+                        <option value="CSE">Computer Science (CSE)</option>
+                        <option value="IT">Information Technology (IT)</option>
+                        <option value="ECE">Electronics (ECE)</option>
+                        <option value="EEE">Electrical (EEE)</option>
+                        <option value="MECH">Mechanical</option>
+                        <option value="CIVIL">Civil</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="year">Year of Study *</label>
+                    <select id="year" required>
+                        <option value="">Select year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="cgpa">CGPA *</label>
+                    <input type="number" id="cgpa"
+                           min="0" max="10" step="0.01"
+                           required placeholder="Example: 8.25">
+                </div>
+
+                <div class="field">
+                    <label for="graduationYear">Graduation Year *</label>
+                    <input type="number" id="graduationYear"
+                           min="2000" max="2100" step="1"
+                           required placeholder="Example: 2027">
+                </div>
+
+                <div class="field">
+                    <label for="studentStatus">Placement Status *</label>
+                    <select id="studentStatus" required>
+                        <option value="Not Placed">Not Placed</option>
+                        <option value="Placed">Placed</option>
+                        <option value="Higher Studies">Higher Studies</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <br>
+
+            <button type="submit" class="primary" id="submitButton">
+                Add Student
+            </button>
+
+            <button type="button" class="secondary" onclick="resetForm()">
+                Clear Form
+            </button>
+
+            <p id="message" role="status"></p>
+        </form>
+    </section>
+
+    <section class="card">
+        <h3>Student Records</h3>
+
+        <div class="search-row">
+            <input type="search" id="searchInput"
+                   placeholder="Search by ID, name, email, or department"
+                   oninput="renderStudents()">
+
+            <button type="button" class="primary" onclick="renderStudents()">
+                Search
+            </button>
+
+            <button type="button" class="secondary" onclick="showAllStudents()">
+                Show All
+            </button>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Department</th>
+                        <th>Year</th>
+                        <th>CGPA</th>
+                        <th>Graduation</th>
+                        <th>Placement Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="studentTableBody"></tbody>
+            </table>
+        </div>
+
+        <p id="recordCount" class="note"></p>
+        <p class="note">
+            Student records are loaded from the placement backend.
+        </p>
+    </section>
+
+</main>
+
+<script src="placement-api.js"></script>
+<script>
+
+    let students = [];
+    let editingStudentId = null;
+
+    const form = document.getElementById("studentForm");
+    const message = document.getElementById("message");
+
+    async function loadStudents() {
+        try {
+            students = await placementApi.list("students");
+            renderStudents();
+            return true;
+        } catch (error) {
+            students = [];
+            renderStudents();
+            message.textContent = error.message;
+            return false;
+        }
+    }
+
+    function getStudentFormData() {
+        return {
+            id: Number(document.getElementById("studentId").value),
+            name: document.getElementById("studentName").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            phone: document.getElementById("phone").value.trim(),
+            department: document.getElementById("department").value,
+            year: Number(document.getElementById("year").value),
+            cgpa: Number(document.getElementById("cgpa").value),
+            graduationYear: Number(
+                document.getElementById("graduationYear").value
+            ),
+            status: document.getElementById("studentStatus").value
+        };
+    }
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const student = getStudentFormData();
+
+        if (!Number.isInteger(student.id) || student.id <= 0) {
+            message.textContent = "Student ID must be a positive integer.";
+            return;
+        }
+
+        if (!Number.isFinite(student.cgpa) ||
+            student.cgpa < 0 || student.cgpa > 10) {
+            message.textContent = "CGPA must be between 0 and 10.";
+            return;
+        }
+
+        if (!Number.isInteger(student.year) ||
+            student.year < 1 || student.year > 4) {
+            message.textContent = "Select a valid year of study.";
+            return;
+        }
+
+        if (!Number.isInteger(student.graduationYear) ||
+            student.graduationYear < 2000 ||
+            student.graduationYear > 2100) {
+            message.textContent = "Enter a valid graduation year.";
+            return;
+        }
+
+        const wasEditing = editingStudentId !== null;
+        try {
+            if (wasEditing) {
+                student.id = editingStudentId;
+                await placementApi.update(
+                    "students", editingStudentId, student
+                );
+            } else {
+                await placementApi.create("students", student);
+            }
+
+            resetForm(false);
+            if (await loadStudents()) {
+                message.textContent = wasEditing
+                    ? "Student updated successfully."
+                    : "Student added successfully.";
+            } else {
+                message.textContent =
+                    "Student was saved, but the list could not be refreshed.";
+            }
+        } catch (error) {
+            message.textContent = error.message;
+        }
+    });
+
+    function renderStudents() {
+        const tbody = document.getElementById("studentTableBody");
+        const query = document.getElementById("searchInput")
+            .value.trim().toLowerCase();
+
+        const filtered = students.filter(student =>
+            [
+                student.id,
+                student.name,
+                student.email,
+                student.phone,
+                student.department,
+                student.status
+            ].some(value =>
+                String(value ?? "").toLowerCase().includes(query)
+            )
+        );
+
+        tbody.replaceChildren();
+
+        if (filtered.length === 0) {
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+
+            cell.colSpan = 10;
+            cell.textContent = query
+                ? "No matching student records found."
+                : "No students added yet.";
+
+            row.appendChild(cell);
+            tbody.appendChild(row);
+        }
+
+        filtered.forEach(student => {
+            const row = document.createElement("tr");
+
+            const values = [
+                student.id,
+                student.name,
+                student.email,
+                student.phone,
+                student.department,
+                student.year + " Year",
+                Number(student.cgpa).toFixed(2),
+                student.graduationYear,
+                student.status
+            ];
+
+            values.forEach(value => {
+                const cell = document.createElement("td");
+                cell.textContent = value ?? "";
+                row.appendChild(cell);
+            });
+
+            const actions = document.createElement("td");
+
+            const editButton = document.createElement("button");
+            editButton.type = "button";
+            editButton.className = "edit";
+            editButton.textContent = "Edit";
+            editButton.addEventListener(
+                "click", () => editStudent(student.id)
+            );
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "delete";
+            deleteButton.textContent = "Delete";
+            deleteButton.addEventListener(
+                "click", () => deleteStudent(student.id)
+            );
+
+            actions.append(editButton, deleteButton);
+            row.appendChild(actions);
+            tbody.appendChild(row);
+        });
+
+        document.getElementById("recordCount").textContent =
+            "Showing " + filtered.length + " of " +
+            students.length + " student(s).";
+    }
+
+    function editStudent(id) {
+        const student = students.find(item => item.id === id);
+        if (!student) return;
+
+        editingStudentId = id;
+
+        document.getElementById("studentId").value = student.id;
+        document.getElementById("studentId").readOnly = true;
+        document.getElementById("studentName").value = student.name;
+        document.getElementById("email").value = student.email;
+        document.getElementById("phone").value = student.phone;
+        document.getElementById("department").value = student.department;
+        document.getElementById("year").value = student.year;
+        document.getElementById("cgpa").value = student.cgpa;
+        document.getElementById("graduationYear").value =
+            student.graduationYear;
+        document.getElementById("studentStatus").value = student.status;
+
+        document.getElementById("formTitle").textContent =
+            "Update Student";
+        document.getElementById("submitButton").textContent =
+            "Update Student";
+
+        message.textContent =
+            "Edit the details and select Update Student.";
+
+        form.scrollIntoView({ behavior: "smooth" });
+    }
+
+    async function deleteStudent(id) {
+        const student = students.find(item => item.id === id);
+        if (!student) return;
+
+        if (!confirm("Delete student " + student.name + "?")) {
+            return;
+        }
+
+        try {
+            await placementApi.remove("students", id);
+            if (editingStudentId === id) {
+                resetForm(false);
+            }
+            if (await loadStudents()) {
+                message.textContent = "Student deleted successfully.";
+            } else {
+                message.textContent =
+                    "Student was deleted, but the list could not be refreshed.";
+            }
+        } catch (error) {
+            message.textContent = error.message;
+        }
+    }
+
+    function resetForm(clearMessage = true) {
+        form.reset();
+        editingStudentId = null;
+
+        document.getElementById("studentId").readOnly = false;
+        document.getElementById("formTitle").textContent =
+            "Add New Student";
+        document.getElementById("submitButton").textContent =
+            "Add Student";
+
+        if (clearMessage) {
+            message.textContent = "";
+        }
+    }
+
+    function showAllStudents() {
+        document.getElementById("searchInput").value = "";
+        renderStudents();
+    }
+
+    loadStudents();
+</script>
+
+</body>
+</html>

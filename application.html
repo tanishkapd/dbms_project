@@ -1,0 +1,539 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications | PlacementPortal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        header {
+            background: #0f172a;
+            color: white;
+            padding: 20px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            background: #334155;
+            padding: 10px 16px;
+            border-radius: 6px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #0000000d;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #0f172a;
+        }
+
+        h3 {
+            margin-top: 0;
+            color: #1d4ed8;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 4px 3px 4px 0;
+        }
+
+        .primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .edit {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .delete {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .search-row input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 900px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 13px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        #message {
+            font-weight: bold;
+        }
+
+        .note {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        @media (max-width: 750px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>PlacementPortal</h2>
+    <a href="dashboard.html">← Back to Dashboard</a>
+</header>
+
+<main class="container">
+
+    <h1>Applications Management</h1>
+    <p>Manage student applications for job opportunities.</p>
+
+    <section class="card">
+        <h3 id="formTitle">Add New Application</h3>
+
+        <form id="applicationForm">
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="applicationId">Application ID *</label>
+                    <input type="number" id="applicationId"
+                           min="1" step="1" required
+                           placeholder="Example: 1001">
+                </div>
+
+                <div class="field">
+                    <label for="studentId">Student ID *</label>
+                    <input type="number" id="studentId"
+                           min="1" step="1" required
+                           placeholder="Example: 101">
+                </div>
+
+                <div class="field">
+                    <label for="jobId">Job ID *</label>
+                    <input type="number" id="jobId"
+                           min="1" step="1" required
+                           placeholder="Example: 201">
+                </div>
+
+                <div class="field">
+                    <label for="applicationDate">Application Date *</label>
+                    <input type="date" id="applicationDate" required>
+                </div>
+
+                <div class="field">
+                    <label for="applicationStatus">Application Status *</label>
+                    <select id="applicationStatus" required>
+                        <option value="Applied">Applied</option>
+                        <option value="Under Review">Under Review</option>
+                        <option value="Shortlisted">Shortlisted</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Selected">Selected</option>
+                        <option value="Withdrawn">Withdrawn</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="resumeStatus">Resume Submitted *</label>
+                    <select id="resumeStatus" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="field full-width">
+                    <label for="remarks">Remarks</label>
+                    <textarea id="remarks"
+                              placeholder="Enter additional notes about the application"></textarea>
+                </div>
+
+            </div>
+
+            <br>
+
+            <button type="submit" class="primary" id="submitButton">
+                Add Application
+            </button>
+
+            <button type="button" class="secondary" onclick="resetForm()">
+                Clear Form
+            </button>
+
+            <p id="message" role="status"></p>
+        </form>
+    </section>
+
+    <section class="card">
+        <h3>Application Records</h3>
+
+        <div class="search-row">
+            <input type="search" id="searchInput"
+                   placeholder="Search by application, student, job ID, or status"
+                   oninput="renderApplications()">
+
+            <button type="button" class="primary"
+                    onclick="renderApplications()">Search</button>
+
+            <button type="button" class="secondary"
+                    onclick="showAllApplications()">Show All</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Application ID</th>
+                        <th>Student ID</th>
+                        <th>Job ID</th>
+                        <th>Application Date</th>
+                        <th>Status</th>
+                        <th>Resume Submitted</th>
+                        <th>Remarks</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="applicationTableBody"></tbody>
+            </table>
+        </div>
+
+        <p id="recordCount" class="note"></p>
+        <p class="note">
+            Application records are loaded from the placement backend.
+        </p>
+    </section>
+
+</main>
+
+<script src="placement-api.js"></script>
+<script>
+
+    let applications = [];
+    let editingApplicationId = null;
+
+    const form = document.getElementById("applicationForm");
+    const message = document.getElementById("message");
+
+    async function loadApplications() {
+        try {
+            applications = await placementApi.list("applications");
+            renderApplications();
+            return true;
+        } catch (error) {
+            applications = [];
+            renderApplications();
+            message.textContent = error.message;
+            return false;
+        }
+    }
+
+    function getFormData() {
+        return {
+            id: Number(document.getElementById("applicationId").value),
+            studentId: Number(document.getElementById("studentId").value),
+            jobId: Number(document.getElementById("jobId").value),
+            date: document.getElementById("applicationDate").value,
+            status: document.getElementById("applicationStatus").value,
+            resume: document.getElementById("resumeStatus").value,
+            remarks: document.getElementById("remarks").value.trim()
+        };
+    }
+
+    form.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const application = getFormData();
+
+        if (!Number.isInteger(application.id) || application.id <= 0 ||
+            !Number.isInteger(application.studentId) ||
+            application.studentId <= 0 ||
+            !Number.isInteger(application.jobId) ||
+            application.jobId <= 0) {
+            message.textContent =
+                "Application ID, Student ID, and Job ID must be positive integers.";
+            return;
+        }
+
+        const wasEditing = editingApplicationId !== null;
+        try {
+            if (wasEditing) {
+                application.id = editingApplicationId;
+                await placementApi.update(
+                    "applications", editingApplicationId, application
+                );
+            } else {
+                await placementApi.create("applications", application);
+            }
+
+            resetForm(false);
+            if (await loadApplications()) {
+                message.textContent = wasEditing
+                    ? "Application updated successfully."
+                    : "Application added successfully.";
+            } else {
+                message.textContent =
+                    "Application was saved, but the list could not be refreshed.";
+            }
+        } catch (error) {
+            message.textContent = error.message;
+        }
+    });
+
+    function renderApplications() {
+        const tbody = document.getElementById("applicationTableBody");
+        const query = document.getElementById("searchInput")
+            .value.trim().toLowerCase();
+
+        const filtered = applications.filter(application =>
+            [
+                application.id,
+                application.studentId,
+                application.jobId,
+                application.date,
+                application.status,
+                application.resume,
+                application.remarks
+            ].some(value =>
+                String(value ?? "").toLowerCase().includes(query)
+            )
+        );
+
+        tbody.replaceChildren();
+
+        if (filtered.length === 0) {
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+
+            cell.colSpan = 8;
+            cell.textContent = query
+                ? "No matching applications found."
+                : "No applications added yet.";
+
+            row.appendChild(cell);
+            tbody.appendChild(row);
+        }
+
+        filtered.forEach(application => {
+            const row = document.createElement("tr");
+
+            const values = [
+                application.id,
+                application.studentId,
+                application.jobId,
+                application.date,
+                application.status,
+                application.resume,
+                application.remarks || "-"
+            ];
+
+            values.forEach(value => {
+                const cell = document.createElement("td");
+                cell.textContent = value ?? "";
+                row.appendChild(cell);
+            });
+
+            const actions = document.createElement("td");
+
+            const editButton = document.createElement("button");
+            editButton.type = "button";
+            editButton.className = "edit";
+            editButton.textContent = "Edit";
+            editButton.addEventListener(
+                "click", () => editApplication(application.id)
+            );
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "delete";
+            deleteButton.textContent = "Delete";
+            deleteButton.addEventListener(
+                "click", () => deleteApplication(application.id)
+            );
+
+            actions.append(editButton, deleteButton);
+            row.appendChild(actions);
+            tbody.appendChild(row);
+        });
+
+        document.getElementById("recordCount").textContent =
+            "Showing " + filtered.length + " of " +
+            applications.length + " application(s).";
+    }
+
+    function editApplication(id) {
+        const application = applications.find(item => item.id === id);
+        if (!application) return;
+
+        editingApplicationId = id;
+
+        document.getElementById("applicationId").value = application.id;
+        document.getElementById("applicationId").readOnly = true;
+        document.getElementById("studentId").value = application.studentId;
+        document.getElementById("jobId").value = application.jobId;
+        document.getElementById("applicationDate").value = application.date;
+        document.getElementById("applicationStatus").value = application.status;
+        document.getElementById("resumeStatus").value = application.resume;
+        document.getElementById("remarks").value = application.remarks || "";
+
+        document.getElementById("formTitle").textContent =
+            "Update Application";
+        document.getElementById("submitButton").textContent =
+            "Update Application";
+
+        message.textContent =
+            "Edit the details and select Update Application.";
+
+        form.scrollIntoView({ behavior: "smooth" });
+    }
+
+    async function deleteApplication(id) {
+        const application = applications.find(item => item.id === id);
+        if (!application) return;
+
+        if (!confirm("Delete application " + id + "?")) return;
+
+        try {
+            await placementApi.remove("applications", id);
+            if (editingApplicationId === id) {
+                resetForm(false);
+            }
+            if (await loadApplications()) {
+                message.textContent = "Application deleted successfully.";
+            } else {
+                message.textContent =
+                    "Application was deleted, but the list could not be refreshed.";
+            }
+        } catch (error) {
+            message.textContent = error.message;
+        }
+    }
+
+    function resetForm(clearMessage = true) {
+        form.reset();
+        editingApplicationId = null;
+
+        document.getElementById("applicationId").readOnly = false;
+        document.getElementById("formTitle").textContent =
+            "Add New Application";
+        document.getElementById("submitButton").textContent =
+            "Add Application";
+
+        if (clearMessage) {
+            message.textContent = "";
+        }
+    }
+
+    function showAllApplications() {
+        document.getElementById("searchInput").value = "";
+        renderApplications();
+    }
+
+    loadApplications();
+</script>
+
+</body>
+</html>

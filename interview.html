@@ -1,0 +1,587 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interviews | PlacementPortal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        header {
+            background: #0f172a;
+            color: white;
+            padding: 20px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            background: #334155;
+            padding: 10px 16px;
+            border-radius: 6px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #0000000d;
+        }
+
+        h1 {
+            color: #0f172a;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #1d4ed8;
+            margin-top: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 4px 3px 4px 0;
+        }
+
+        .primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .edit {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .delete {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .search-row input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 950px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 13px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        #message {
+            font-weight: bold;
+        }
+
+        .note {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media (max-width: 750px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>PlacementPortal</h2>
+    <a href="dashboard.html">← Back to Dashboard</a>
+</header>
+
+<main class="container">
+
+    <h1>Interview Management</h1>
+    <p>Schedule interviews and track interview results.</p>
+
+    <section class="card">
+        <h3 id="formTitle">Schedule New Interview</h3>
+
+        <form id="interviewForm">
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="interviewId">Interview ID *</label>
+                    <input type="number" id="interviewId"
+                           min="1" step="1" required
+                           placeholder="Example: 1001">
+                </div>
+
+                <div class="field">
+                    <label for="applicationId">Application ID *</label>
+                    <input type="number" id="applicationId"
+                           min="1" step="1" required
+                           placeholder="Example: 501">
+                </div>
+
+                <div class="field">
+                    <label for="round">Interview Round *</label>
+                    <select id="round" required>
+                        <option value="">Select round</option>
+                        <option value="Online Assessment">Online Assessment</option>
+                        <option value="Technical Round 1">Technical Round 1</option>
+                        <option value="Technical Round 2">Technical Round 2</option>
+                        <option value="HR Round">HR Round</option>
+                        <option value="Final Round">Final Round</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="interviewDate">Interview Date *</label>
+                    <input type="date" id="interviewDate" required>
+                </div>
+
+                <div class="field">
+                    <label for="interviewTime">Interview Time *</label>
+                    <input type="time" id="interviewTime" required>
+                </div>
+
+                <div class="field">
+                    <label for="mode">Interview Mode *</label>
+                    <select id="mode" required>
+                        <option value="">Select mode</option>
+                        <option value="Online">Online</option>
+                        <option value="Offline">Offline</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="interviewer">Interviewer Name</label>
+                    <input type="text" id="interviewer"
+                           maxlength="100"
+                           placeholder="Enter interviewer name">
+                </div>
+
+                <div class="field">
+                    <label for="location">Location / Meeting Link</label>
+                    <input type="text" id="location"
+                           maxlength="250"
+                           placeholder="Office location or meeting details">
+                </div>
+
+                <div class="field">
+                    <label for="status">Interview Status *</label>
+                    <select id="status" required>
+                        <option value="Scheduled">Scheduled</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Rescheduled">Rescheduled</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="result">Interview Result *</label>
+                    <select id="result" required>
+                        <option value="Pending">Pending</option>
+                        <option value="Selected">Selected</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="On Hold">On Hold</option>
+                    </select>
+                </div>
+
+                <div class="field full-width">
+                    <label for="remarks">Remarks</label>
+                    <textarea id="remarks"
+                              placeholder="Enter feedback or additional notes"></textarea>
+                </div>
+
+            </div>
+
+            <br>
+
+            <button type="submit" class="primary" id="submitButton">
+                Schedule Interview
+            </button>
+
+            <button type="button" class="secondary" onclick="resetForm()">
+                Clear Form
+            </button>
+
+            <p id="message" role="status"></p>
+        </form>
+    </section>
+
+    <section class="card">
+        <h3>Interview Records</h3>
+
+        <div class="search-row">
+            <input type="search" id="searchInput"
+                   placeholder="Search by interview ID, application ID, round, or status"
+                   oninput="renderInterviews()">
+
+            <button type="button" class="primary"
+                    onclick="renderInterviews()">Search</button>
+
+            <button type="button" class="secondary"
+                    onclick="showAllInterviews()">Show All</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Interview ID</th>
+                        <th>Application ID</th>
+                        <th>Round</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Mode</th>
+                        <th>Interviewer</th>
+                        <th>Status</th>
+                        <th>Result</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="interviewTableBody"></tbody>
+            </table>
+        </div>
+
+        <p id="recordCount" class="note"></p>
+        <p class="note">
+            Interview records are loaded from the placement backend.
+        </p>
+    </section>
+
+</main>
+
+<script src="placement-api.js"></script>
+<script>
+
+    let interviews = [];
+    let editingInterviewId = null;
+
+    const form = document.getElementById("interviewForm");
+    const message = document.getElementById("message");
+
+    async function loadInterviews() {
+        try {
+            interviews = await placementApi.list("interviews");
+            renderInterviews();
+            return true;
+        } catch (error) {
+            interviews = [];
+            renderInterviews();
+            message.textContent = error.message;
+            return false;
+        }
+    }
+
+    function getFormData() {
+        return {
+            id: Number(document.getElementById("interviewId").value),
+            applicationId: Number(
+                document.getElementById("applicationId").value
+            ),
+            round: document.getElementById("round").value,
+            date: document.getElementById("interviewDate").value,
+            time: document.getElementById("interviewTime").value,
+            mode: document.getElementById("mode").value,
+            interviewer: document.getElementById("interviewer").value.trim(),
+            location: document.getElementById("location").value.trim(),
+            status: document.getElementById("status").value,
+            result: document.getElementById("result").value,
+            remarks: document.getElementById("remarks").value.trim()
+        };
+    }
+
+    form.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const interview = getFormData();
+
+        if (!Number.isInteger(interview.id) || interview.id <= 0 ||
+            !Number.isInteger(interview.applicationId) ||
+            interview.applicationId <= 0) {
+            message.textContent =
+                "Interview ID and Application ID must be positive integers.";
+            return;
+        }
+
+        const wasEditing = editingInterviewId !== null;
+        try {
+            if (wasEditing) {
+                interview.id = editingInterviewId;
+                await placementApi.update(
+                    "interviews", editingInterviewId, interview
+                );
+            } else {
+                await placementApi.create("interviews", interview);
+            }
+
+            resetForm(false);
+            if (await loadInterviews()) {
+                message.textContent = wasEditing
+                    ? "Interview updated successfully."
+                    : "Interview scheduled successfully.";
+            } else {
+                message.textContent =
+                    "Interview was saved, but the list could not be refreshed.";
+            }
+        } catch (error) {
+            message.textContent = error.message;
+        }
+    });
+
+    function renderInterviews() {
+        const tbody = document.getElementById("interviewTableBody");
+        const query = document.getElementById("searchInput")
+            .value.trim().toLowerCase();
+
+        const filtered = interviews.filter(interview =>
+            [
+                interview.id,
+                interview.applicationId,
+                interview.round,
+                interview.date,
+                interview.mode,
+                interview.interviewer,
+                interview.status,
+                interview.result
+            ].some(value =>
+                String(value ?? "").toLowerCase().includes(query)
+            )
+        );
+
+        tbody.replaceChildren();
+
+        if (filtered.length === 0) {
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+
+            cell.colSpan = 10;
+            cell.textContent = query
+                ? "No matching interviews found."
+                : "No interviews scheduled yet.";
+
+            row.appendChild(cell);
+            tbody.appendChild(row);
+        }
+
+        filtered.forEach(interview => {
+            const row = document.createElement("tr");
+
+            const values = [
+                interview.id,
+                interview.applicationId,
+                interview.round,
+                interview.date,
+                interview.time,
+                interview.mode,
+                interview.interviewer || "-",
+                interview.status,
+                interview.result
+            ];
+
+            values.forEach(value => {
+                const cell = document.createElement("td");
+                cell.textContent = value ?? "";
+                row.appendChild(cell);
+            });
+
+            const actions = document.createElement("td");
+
+            const editButton = document.createElement("button");
+            editButton.type = "button";
+            editButton.className = "edit";
+            editButton.textContent = "Edit";
+            editButton.addEventListener(
+                "click", () => editInterview(interview.id)
+            );
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "delete";
+            deleteButton.textContent = "Delete";
+            deleteButton.addEventListener(
+                "click", () => deleteInterview(interview.id)
+            );
+
+            actions.append(editButton, deleteButton);
+            row.appendChild(actions);
+            tbody.appendChild(row);
+        });
+
+        document.getElementById("recordCount").textContent =
+            "Showing " + filtered.length + " of " +
+            interviews.length + " interview(s).";
+    }
+
+    function editInterview(id) {
+        const interview = interviews.find(item => item.id === id);
+        if (!interview) return;
+
+        editingInterviewId = id;
+
+        document.getElementById("interviewId").value = interview.id;
+        document.getElementById("interviewId").readOnly = true;
+        document.getElementById("applicationId").value =
+            interview.applicationId;
+        document.getElementById("round").value = interview.round;
+        document.getElementById("interviewDate").value = interview.date;
+        document.getElementById("interviewTime").value = interview.time;
+        document.getElementById("mode").value = interview.mode;
+        document.getElementById("interviewer").value =
+            interview.interviewer || "";
+        document.getElementById("location").value = interview.location || "";
+        document.getElementById("status").value = interview.status;
+        document.getElementById("result").value = interview.result;
+        document.getElementById("remarks").value = interview.remarks || "";
+
+        document.getElementById("formTitle").textContent =
+            "Update Interview";
+        document.getElementById("submitButton").textContent =
+            "Update Interview";
+
+        message.textContent =
+            "Edit the details and select Update Interview.";
+
+        form.scrollIntoView({ behavior: "smooth" });
+    }
+
+    async function deleteInterview(id) {
+        const interview = interviews.find(item => item.id === id);
+        if (!interview) return;
+
+        if (!confirm("Delete interview " + id + "?")) return;
+
+        try {
+            await placementApi.remove("interviews", id);
+            if (editingInterviewId === id) {
+                resetForm(false);
+            }
+            if (await loadInterviews()) {
+                message.textContent = "Interview deleted successfully.";
+            } else {
+                message.textContent =
+                    "Interview was deleted, but the list could not be refreshed.";
+            }
+        } catch (error) {
+            message.textContent = error.message;
+        }
+    }
+
+    function resetForm(clearMessage = true) {
+        form.reset();
+        editingInterviewId = null;
+
+        document.getElementById("interviewId").readOnly = false;
+        document.getElementById("formTitle").textContent =
+            "Schedule New Interview";
+        document.getElementById("submitButton").textContent =
+            "Schedule Interview";
+
+        if (clearMessage) {
+            message.textContent = "";
+        }
+    }
+
+    function showAllInterviews() {
+        document.getElementById("searchInput").value = "";
+        renderInterviews();
+    }
+
+    loadInterviews();
+</script>
+
+</body>
+</html>

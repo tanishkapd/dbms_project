@@ -1,0 +1,574 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offers | PlacementPortal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        header {
+            background: #0f172a;
+            color: white;
+            padding: 20px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        header a {
+            color: white;
+            background: #334155;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #0000000d;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #0f172a;
+        }
+
+        h3 {
+            margin-top: 0;
+            color: #1d4ed8;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 4px 3px 4px 0;
+        }
+
+        .primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .edit {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .delete {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .search-row input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 1000px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 13px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        #message {
+            font-weight: bold;
+        }
+
+        .note {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media (max-width: 750px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>PlacementPortal</h2>
+    <a href="dashboard.html">← Back to Dashboard</a>
+</header>
+
+<main class="container">
+
+    <h1>Placement Offers Management</h1>
+    <p>Manage job offers received by students from recruiting companies.</p>
+
+    <section class="card">
+        <h3 id="formTitle">Add New Offer</h3>
+
+        <form id="offerForm">
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="offerId">Offer ID *</label>
+                    <input type="number" id="offerId"
+                           min="1" step="1" required
+                           placeholder="Example: 1001">
+                </div>
+
+                <div class="field">
+                    <label for="applicationId">Application ID *</label>
+                    <input type="number" id="applicationId"
+                           min="1" step="1" required
+                           placeholder="Example: 501">
+                </div>
+
+                <div class="field">
+                    <label for="companyName">Company Name *</label>
+                    <input type="text" id="companyName"
+                           maxlength="150" required
+                           placeholder="Enter company name">
+                </div>
+
+                <div class="field">
+                    <label for="jobTitle">Job Title *</label>
+                    <input type="text" id="jobTitle"
+                           maxlength="150" required
+                           placeholder="Software Developer">
+                </div>
+
+                <div class="field">
+                    <label for="package">Annual Package (LPA) *</label>
+                    <input type="number" id="package"
+                           min="0" step="0.01" required
+                           placeholder="Example: 6.5">
+                </div>
+
+                <div class="field">
+                    <label for="offerDate">Offer Date *</label>
+                    <input type="date" id="offerDate" required>
+                </div>
+
+                <div class="field">
+                    <label for="joiningDate">Expected Joining Date</label>
+                    <input type="date" id="joiningDate">
+                </div>
+
+                <div class="field">
+                    <label for="offerStatus">Offer Status *</label>
+                    <select id="offerStatus" required>
+                        <option value="Pending">Pending</option>
+                        <option value="Accepted">Accepted</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Withdrawn">Withdrawn</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="offerType">Offer Type *</label>
+                    <select id="offerType" required>
+                        <option value="">Select offer type</option>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Contract">Contract</option>
+                    </select>
+                </div>
+
+                <div class="field full-width">
+                    <label for="remarks">Remarks</label>
+                    <textarea id="remarks"
+                              placeholder="Enter additional offer details"></textarea>
+                </div>
+
+            </div>
+
+            <br>
+
+            <button type="submit" class="primary" id="submitButton">
+                Add Offer
+            </button>
+
+            <button type="button" class="secondary" onclick="resetForm()">
+                Clear Form
+            </button>
+
+            <p id="message" role="status"></p>
+        </form>
+    </section>
+
+    <section class="card">
+        <h3>Offer Records</h3>
+
+        <div class="search-row">
+            <input type="search" id="searchInput"
+                   placeholder="Search by offer ID, company, job title, or status"
+                   oninput="renderOffers()">
+
+            <button type="button" class="primary"
+                    onclick="renderOffers()">Search</button>
+
+            <button type="button" class="secondary"
+                    onclick="showAllOffers()">Show All</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Offer ID</th>
+                        <th>Application ID</th>
+                        <th>Company</th>
+                        <th>Job Title</th>
+                        <th>Package (LPA)</th>
+                        <th>Offer Date</th>
+                        <th>Joining Date</th>
+                        <th>Status</th>
+                        <th>Offer Type</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="offerTableBody"></tbody>
+            </table>
+        </div>
+
+        <p id="recordCount" class="note"></p>
+        <p class="note">
+            Offer records are loaded from the placement backend.
+        </p>
+    </section>
+
+</main>
+
+<script src="placement-api.js"></script>
+<script>
+
+    let offers = [];
+    let editingOfferId = null;
+
+    const form = document.getElementById("offerForm");
+    const message = document.getElementById("message");
+
+    async function loadOffers() {
+        try {
+            offers = await placementApi.list("offers");
+            renderOffers();
+            return true;
+        } catch (error) {
+            offers = [];
+            renderOffers();
+            message.textContent = error.message;
+            return false;
+        }
+    }
+
+    function getFormData() {
+        return {
+            id: Number(document.getElementById("offerId").value),
+            applicationId: Number(
+                document.getElementById("applicationId").value
+            ),
+            companyName: document.getElementById("companyName").value.trim(),
+            jobTitle: document.getElementById("jobTitle").value.trim(),
+            packageLpa: Number(document.getElementById("package").value),
+            offerDate: document.getElementById("offerDate").value,
+            joiningDate: document.getElementById("joiningDate").value,
+            status: document.getElementById("offerStatus").value,
+            type: document.getElementById("offerType").value,
+            remarks: document.getElementById("remarks").value.trim()
+        };
+    }
+
+    form.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const offer = getFormData();
+
+        if (!Number.isInteger(offer.id) || offer.id <= 0 ||
+            !Number.isInteger(offer.applicationId) ||
+            offer.applicationId <= 0) {
+            message.textContent =
+                "Offer ID and Application ID must be positive integers.";
+            return;
+        }
+
+        if (!Number.isFinite(offer.packageLpa) || offer.packageLpa < 0) {
+            message.textContent = "Enter a valid package amount.";
+            return;
+        }
+
+        if (offer.joiningDate && offer.joiningDate < offer.offerDate) {
+            message.textContent =
+                "Joining date cannot be earlier than the offer date.";
+            return;
+        }
+
+        const wasEditing = editingOfferId !== null;
+        try {
+            if (wasEditing) {
+                offer.id = editingOfferId;
+                await placementApi.update("offers", editingOfferId, offer);
+            } else {
+                await placementApi.create("offers", offer);
+            }
+
+            resetForm(false);
+            if (await loadOffers()) {
+                message.textContent = wasEditing
+                    ? "Offer updated successfully."
+                    : "Offer added successfully.";
+            } else {
+                message.textContent =
+                    "Offer was saved, but the list could not be refreshed.";
+            }
+        } catch (error) {
+            message.textContent = error.message;
+        }
+    });
+
+    function renderOffers() {
+        const tbody = document.getElementById("offerTableBody");
+        const query = document.getElementById("searchInput")
+            .value.trim().toLowerCase();
+
+        const filtered = offers.filter(offer =>
+            [
+                offer.id,
+                offer.applicationId,
+                offer.companyName,
+                offer.jobTitle,
+                offer.status,
+                offer.type
+            ].some(value =>
+                String(value ?? "").toLowerCase().includes(query)
+            )
+        );
+
+        tbody.replaceChildren();
+
+        if (filtered.length === 0) {
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+
+            cell.colSpan = 10;
+            cell.textContent = query
+                ? "No matching offers found."
+                : "No offers added yet.";
+
+            row.appendChild(cell);
+            tbody.appendChild(row);
+        }
+
+        filtered.forEach(offer => {
+            const row = document.createElement("tr");
+
+            const values = [
+                offer.id,
+                offer.applicationId,
+                offer.companyName,
+                offer.jobTitle,
+                Number(offer.packageLpa).toFixed(2),
+                offer.offerDate,
+                offer.joiningDate || "-",
+                offer.status,
+                offer.type
+            ];
+
+            values.forEach(value => {
+                const cell = document.createElement("td");
+                cell.textContent = value ?? "";
+                row.appendChild(cell);
+            });
+
+            const actions = document.createElement("td");
+
+            const editButton = document.createElement("button");
+            editButton.type = "button";
+            editButton.className = "edit";
+            editButton.textContent = "Edit";
+            editButton.addEventListener(
+                "click", () => editOffer(offer.id)
+            );
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "delete";
+            deleteButton.textContent = "Delete";
+            deleteButton.addEventListener(
+                "click", () => deleteOffer(offer.id)
+            );
+
+            actions.append(editButton, deleteButton);
+            row.appendChild(actions);
+            tbody.appendChild(row);
+        });
+
+        document.getElementById("recordCount").textContent =
+            "Showing " + filtered.length + " of " +
+            offers.length + " offer(s).";
+    }
+
+    function editOffer(id) {
+        const offer = offers.find(item => item.id === id);
+        if (!offer) return;
+
+        editingOfferId = id;
+
+        document.getElementById("offerId").value = offer.id;
+        document.getElementById("offerId").readOnly = true;
+        document.getElementById("applicationId").value =
+            offer.applicationId;
+        document.getElementById("companyName").value = offer.companyName;
+        document.getElementById("jobTitle").value = offer.jobTitle;
+        document.getElementById("package").value = offer.packageLpa;
+        document.getElementById("offerDate").value = offer.offerDate;
+        document.getElementById("joiningDate").value = offer.joiningDate || "";
+        document.getElementById("offerStatus").value = offer.status;
+        document.getElementById("offerType").value = offer.type;
+        document.getElementById("remarks").value = offer.remarks || "";
+
+        document.getElementById("formTitle").textContent = "Update Offer";
+        document.getElementById("submitButton").textContent = "Update Offer";
+
+        message.textContent = "Edit the details and select Update Offer.";
+
+        form.scrollIntoView({ behavior: "smooth" });
+    }
+
+    async function deleteOffer(id) {
+        const offer = offers.find(item => item.id === id);
+        if (!offer) return;
+
+        if (!confirm("Delete offer " + id + " for " + offer.companyName + "?")) {
+            return;
+        }
+
+        try {
+            await placementApi.remove("offers", id);
+            if (editingOfferId === id) {
+                resetForm(false);
+            }
+            if (await loadOffers()) {
+                message.textContent = "Offer deleted successfully.";
+            } else {
+                message.textContent =
+                    "Offer was deleted, but the list could not be refreshed.";
+            }
+        } catch (error) {
+            message.textContent = error.message;
+        }
+    }
+
+    function resetForm(clearMessage = true) {
+        form.reset();
+        editingOfferId = null;
+
+        document.getElementById("offerId").readOnly = false;
+        document.getElementById("formTitle").textContent = "Add New Offer";
+        document.getElementById("submitButton").textContent = "Add Offer";
+
+        if (clearMessage) {
+            message.textContent = "";
+        }
+    }
+
+    function showAllOffers() {
+        document.getElementById("searchInput").value = "";
+        renderOffers();
+    }
+
+    loadOffers();
+</script>
+
+</body>
+</html>

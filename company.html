@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Companies | Placement Management System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f6fc;
+            color: #172554;
+        }
+
+        header {
+            background: #101d46;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            border: 1px solid #64748b;
+            border-radius: 7px;
+            padding: 9px 14px;
+        }
+
+        header a:hover {
+            background: #263b70;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 35px 24px;
+        }
+
+        .page-heading {
+            margin-bottom: 25px;
+        }
+
+        .page-heading h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .panel {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 5px 18px rgba(15, 23, 42, 0.04);
+        }
+
+        .panel h2 {
+            font-size: 21px;
+            margin-bottom: 22px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            color: #172554;
+        }
+
+        input:focus {
+            outline: 2px solid #93c5fd;
+            border-color: #2457d6;
+        }
+
+        input:read-only {
+            background: #f1f5f9;
+        }
+
+        .form-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        button {
+            padding: 11px 17px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        button:focus-visible, a:focus-visible {
+            outline: 3px solid #93c5fd;
+            outline-offset: 3px;
+        }
+
+        .primary {
+            background: #2457d6;
+            color: white;
+        }
+
+        .primary:hover {
+            background: #1945b5;
+        }
+
+        .secondary {
+            background: #e2e8f0;
+            color: #172554;
+        }
+
+        .danger {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            max-width: 420px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        th {
+            background: #edf2ff;
+            color: #172554;
+        }
+
+        tbody tr:hover {
+            background: #f8faff;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 7px;
+        }
+
+        .table-actions button {
+            padding: 7px 10px;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            color: #64748b;
+            padding: 25px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 650px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box input {
+                max-width: none;
+            }
+
+            .panel {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Placement<span>Portal</span></div>
+    <a href="dashboard.html">← Back to Dashboard</a>
+</header>
+
+<main class="container">
+
+    <section class="page-heading">
+        <h1>Company Management</h1>
+        <p>Add, update, search and manage companies participating in campus placements.</p>
+    </section>
+
+    <section class="panel">
+        <h2 id="formTitle">Add Company</h2>
+
+        <form id="companyForm">
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="companyId">Company ID *</label>
+                    <input type="number" id="companyId"
+                           placeholder="e.g. 101" min="1" step="1" required>
+                </div>
+
+                <div class="field">
+                    <label for="companyName">Company Name *</label>
+                    <input type="text" id="companyName"
+                           placeholder="Enter company name" required>
+                </div>
+
+                <div class="field">
+                    <label for="industryType">Industry Type *</label>
+                    <input type="text" id="industryType"
+                           placeholder="e.g. Information Technology" required>
+                </div>
+
+                <div class="field">
+                    <label for="website">Website</label>
+                    <input type="url" id="website"
+                           placeholder="https://example.com">
+                </div>
+
+                <div class="field">
+                    <label for="location">Location *</label>
+                    <input type="text" id="location"
+                           placeholder="e.g. Bengaluru" required>
+                </div>
+
+                <div class="field">
+                    <label for="contactPerson">Contact Person</label>
+                    <input type="text" id="contactPerson"
+                           placeholder="Enter contact person">
+                </div>
+
+                <div class="field">
+                    <label for="email">Contact Email</label>
+                    <input type="email" id="email"
+                           placeholder="recruiter@example.com">
+                </div>
+
+                <div class="field">
+                    <label for="phoneNo">Phone Number</label>
+                    <input type="tel" id="phoneNo"
+                           placeholder="Enter phone number">
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="primary" id="saveButton">
+                    Add Company
+                </button>
+
+                <button type="button" class="secondary" onclick="resetForm()">
+                    Clear Form
+                </button>
+            </div>
+
+            <p id="message" role="status" aria-live="polite"></p>
+        </form>
+    </section>
+
+    <section class="panel">
+        <h2>Company Records</h2>
+
+        <div class="search-box">
+            <input type="search" id="searchInput"
+                   placeholder="Search by ID, company, industry, website or location..."
+                   aria-label="Search company records">
+
+            <button type="button" class="primary" onclick="renderCompanies()">
+                Search
+            </button>
+
+            <button type="button" class="secondary" onclick="clearSearch()">
+                Show All
+            </button>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Company ID</th>
+                        <th>Company Name</th>
+                        <th>Industry Type</th>
+                        <th>Website</th>
+                        <th>Location</th>
+                        <th>Contact Person</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="companyTable">
+                    <tr>
+                        <td colspan="9">No company records available.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    Placement Management System | Company Management
+</footer>
+
+<script>
+    let companies = [];
+    let editingId = null;
+
+    const form = document.getElementById("companyForm");
+    const message = document.getElementById("message");
+    const companyIdInput = document.getElementById("companyId");
+
+    async function apiRequest(path = "", options = {}) {
+        const response = await fetch(
+            new URL("api/companies" + path, window.location.href),
+            {
+                ...options,
+                headers: {
+                    "Content-Type": "application/json",
+                    ...options.headers
+                }
+            }
+        );
+        const responseText = await response.text();
+        let data = null;
+
+        if (responseText) {
+            try {
+                data = JSON.parse(responseText);
+            } catch {
+                throw new Error(
+                    "The server returned an invalid response. Check the backend logs."
+                );
+            }
+        }
+
+        if (!response.ok) {
+            throw new Error(data?.error || `Request failed (${response.status}).`);
+        }
+
+        return data;
+    }
+
+    function showMessage(text, isError = false) {
+        message.textContent = text;
+        message.style.color = isError ? "#b91c1c" : "#166534";
+    }
+
+    function getFormData() {
+        return {
+            id: companyIdInput.value.trim(),
+            name: document.getElementById("companyName").value.trim(),
+            industry_type: document.getElementById("industryType").value.trim(),
+            website: document.getElementById("website").value.trim(),
+            location: document.getElementById("location").value.trim(),
+            contact: document.getElementById("contactPerson").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            phone_no: document.getElementById("phoneNo").value.trim()
+        };
+    }
+
+    form.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const company = getFormData();
+
+        if (!Number.isSafeInteger(Number(company.id)) ||
+            Number(company.id) < 1) {
+            showMessage("Company ID must be a positive whole number.", true);
+            return;
+        }
+
+        if (!company.name || !company.industry_type || !company.location) {
+            showMessage("Please fill in all required fields.", true);
+            return;
+        }
+
+        const wasEditing = editingId !== null;
+        const urlPath = wasEditing
+            ? "/" + encodeURIComponent(editingId)
+            : "";
+
+        try {
+            await apiRequest(urlPath, {
+                method: wasEditing ? "PUT" : "POST",
+                body: JSON.stringify(company)
+            });
+
+            resetForm(false);
+            if (await loadCompanies(false)) {
+                showMessage(
+                    wasEditing
+                        ? "Company updated successfully."
+                        : "Company added successfully."
+                );
+            } else {
+                showMessage(
+                    "Company was saved, but the company list could not be refreshed.",
+                    true
+                );
+            }
+        } catch (error) {
+            showMessage(error.message, true);
+        }
+    });
+
+    function renderCompanies() {
+        const tbody = document.getElementById("companyTable");
+        const query = document.getElementById("searchInput")
+            .value.trim().toLowerCase();
+
+        const filtered = companies.filter(company => Object.values(company)
+            .some(value => String(value ?? "").toLowerCase().includes(query)));
+
+        tbody.replaceChildren();
+
+        if (filtered.length === 0) {
+            const row = tbody.insertRow();
+            const cell = row.insertCell();
+            cell.colSpan = 9;
+            cell.textContent = query
+                ? "No matching companies found."
+                : "No company records available.";
+            return;
+        }
+
+        filtered.forEach(company => {
+            const row = tbody.insertRow();
+
+            [
+                company.id,
+                company.name,
+                company.industry_type || company.industry || "",
+                company.website || "—",
+                company.location,
+                company.contact || "—",
+                company.email || "—",
+                company.phone_no || "—"
+            ].forEach(value => {
+                const cell = row.insertCell();
+                cell.textContent = value ?? "";
+            });
+
+            const actions = row.insertCell();
+            actions.className = "table-actions";
+
+            const editButton = document.createElement("button");
+            editButton.textContent = "Edit";
+            editButton.className = "primary";
+            editButton.type = "button";
+            editButton.addEventListener("click", () =>
+                editCompany(String(company.id))
+            );
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "danger";
+            deleteButton.type = "button";
+            deleteButton.addEventListener("click", () =>
+                deleteCompany(String(company.id))
+            );
+
+            actions.append(editButton, deleteButton);
+        });
+    }
+
+    function editCompany(id) {
+        const company = companies.find(item => String(item.id) === id);
+        if (!company) {
+            showMessage("Company was not found in the loaded records.", true);
+            return;
+        }
+
+        editingId = id;
+
+        companyIdInput.value = company.id;
+        companyIdInput.readOnly = true;
+
+        document.getElementById("companyName").value = company.name || "";
+        document.getElementById("industryType").value =
+            company.industry_type || company.industry || "";
+        document.getElementById("website").value = company.website || "";
+        document.getElementById("location").value = company.location || "";
+        document.getElementById("contactPerson").value = company.contact || "";
+        document.getElementById("email").value = company.email || "";
+        document.getElementById("phoneNo").value = company.phone_no || "";
+
+        document.getElementById("formTitle").textContent = "Update Company";
+        document.getElementById("saveButton").textContent = "Save Changes";
+
+        showMessage("Edit the details and select Save Changes.");
+
+        document.getElementById("formTitle").scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }
+
+    async function deleteCompany(id) {
+        const company = companies.find(item => String(item.id) === id);
+        if (!company) {
+            showMessage("Company was not found in the loaded records.", true);
+            return;
+        }
+
+        if (!confirm("Delete company " + company.name + "?")) return;
+
+        try {
+            await apiRequest("/" + encodeURIComponent(id), {
+                method: "DELETE"
+            });
+            if (editingId === id) {
+                resetForm(false);
+            }
+            if (await loadCompanies(false)) {
+                showMessage("Company deleted successfully.");
+            } else {
+                showMessage(
+                    "Company was deleted, but the company list could not be refreshed.",
+                    true
+                );
+            }
+        } catch (error) {
+            showMessage(error.message, true);
+        }
+    }
+
+    function resetForm(clearMessage = true) {
+        form.reset();
+        editingId = null;
+
+        companyIdInput.readOnly = false;
+
+        document.getElementById("formTitle").textContent = "Add Company";
+        document.getElementById("saveButton").textContent = "Add Company";
+
+        if (clearMessage) {
+            message.textContent = "";
+        }
+    }
+
+    async function loadCompanies(showError = true) {
+        try {
+            companies = await apiRequest();
+            renderCompanies();
+            return true;
+        } catch (error) {
+            companies = [];
+            renderCompanies();
+            if (showError) {
+                showMessage(error.message, true);
+            }
+            return false;
+        }
+    }
+
+    function clearSearch() {
+        document.getElementById("searchInput").value = "";
+        renderCompanies();
+    }
+
+    document.getElementById("searchInput")
+        .addEventListener("input", renderCompanies);
+
+    loadCompanies();
+</script>
+
+</body>
+</html>

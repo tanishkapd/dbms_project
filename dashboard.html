@@ -1,0 +1,263 @@
+~~~html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Placement Management System - Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f3f6fc;
+            color: #172554;
+        }
+
+        header {
+            background: #101d46;
+            color: white;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            border: 1px solid #64748b;
+            padding: 9px 16px;
+            border-radius: 8px;
+        }
+
+        header a:hover {
+            background: #263b70;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .welcome {
+            margin-bottom: 35px;
+        }
+
+        .welcome h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #64748b;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .section-title {
+            font-size: 21px;
+            margin-bottom: 20px;
+        }
+
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.10);
+        }
+
+        .icon {
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: #e8efff;
+            font-size: 27px;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            margin-bottom: 9px;
+            font-size: 20px;
+        }
+
+        .card p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 45px;
+            margin-bottom: 20px;
+        }
+
+        .card button {
+            width: 100%;
+            border: none;
+            background: #2457d6;
+            color: white;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .card button:hover {
+            background: #1945b5;
+        }
+
+        footer {
+            text-align: center;
+            color: #64748b;
+            padding: 28px 15px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 850px) {
+            .modules {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 550px) {
+            .modules {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">Placement<span>Portal</span></div>
+        <a href="index.html">← Back to Welcome</a>
+    </header>
+
+    <main class="container">
+
+        <section class="welcome">
+            <h1>Dashboard</h1>
+            <p>
+                Manage companies, job postings, students, applications,
+                interviews and placement offers from one place.
+            </p>
+        </section>
+
+        <h2 class="section-title">Database Management Modules</h2>
+
+        <section class="modules">
+
+            <div class="card">
+                <div class="icon">🏢</div>
+                <h3>Companies</h3>
+                <p>Manage company details, contact information and recruiters.</p>
+                <button onclick="window.location.href='company.html'">
+                 Manage Companies →
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="icon">💼</div>
+                <h3>Job Postings</h3>
+                <p>Manage job roles, eligibility criteria, vacancies and packages.</p>
+                <button onclick="window.location.href='jobposting.html'">
+                 Manage Jobs →
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="icon">🎓</div>
+                <h3>Students</h3>
+                <p>Maintain student profiles, department details and academic records.</p>
+                <button onclick="window.location.href='student.html'">
+                 Manage Students →
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="icon">📝</div>
+                <h3>Applications</h3>
+                <p>Track student applications and their current status.</p>
+                <button onclick="window.location.href='application.html'">
+                Manage Applications →
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="icon">📅</div>
+                <h3>Interviews</h3>
+                <p>Manage interview schedules, rounds and interview results.</p>
+                <button onclick="window.location.href='interview.html'">
+                 Manage Interviews →
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="icon">🏆</div>
+                <h3>Offers</h3>
+                <p>Maintain placement offers, offered packages and offer status.</p>
+                <button onclick="window.location.href='offer.html'">
+                Manage Offers →
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        Placement Management System | Database Management Project
+    </footer>
+
+    <script>
+        function openModule(moduleName) {
+            alert(
+                moduleName +
+                " module selected.\n\n" +
+                "This module will be connected to its form " +
+                "and Java JDBC backend."
+            );
+        }
+    </script>
+
+</body>
+</html>
+~~~
