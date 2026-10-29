@@ -190,6 +190,35 @@
             font-size: 13px;
         }
 
+        .sql-query-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .sql-query-buttons button:disabled {
+            cursor: wait;
+            opacity: 0.65;
+        }
+
+        .sql-query-status {
+            min-height: 1.4em;
+            color: #475569;
+        }
+
+        .sql-query-error {
+            color: #b91c1c;
+        }
+
+        .sql-query-output {
+            overflow-x: auto;
+        }
+
+        .sql-query-output table {
+            min-width: 100%;
+        }
+
         @media (max-width: 750px) {
             .form-grid {
                 grid-template-columns: 1fr;
@@ -350,9 +379,36 @@
             Job postings are loaded from the placement backend.
         </p>
     </section>
+
+    <section class="card sql-query-card" data-sql-query-table="jobs">
+        <h3>SQL Queries for JOB_POSTING</h3>
+        <p class="note">Select a predefined query to run against Oracle.</p>
+        <div class="sql-query-buttons" role="group"
+             aria-label="JOB_POSTING SQL queries">
+            <button type="button" class="primary" data-query-id="simple">Simple SELECT</button>
+            <button type="button" class="primary" data-query-id="aggregate">Aggregate</button>
+            <button type="button" class="primary" data-query-id="complex">Complex SELECT</button>
+            <button type="button" class="primary" data-query-id="join">JOIN</button>
+            <button type="button" class="primary" data-query-id="nested">Nested Queries</button>
+            <button type="button" class="primary" data-query-id="functions">SQL Functions</button>
+        </div>
+        <p class="sql-query-status" role="status" aria-live="polite"></p>
+        <div class="sql-query-output" hidden>
+            <div class="table-wrapper">
+                <table>
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <p class="note sql-query-empty" hidden>
+                No records were returned for this query.
+            </p>
+        </div>
+    </section>
+
 </main>
 
-<script src="placement-api.js"></script>
+<script src="placement-api.js?v=sql-queries-v2"></script>
 <script>
 
     let jobs = [];

@@ -218,6 +218,88 @@
             font-size: 13px;
         }
 
+        .sql-query-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .sql-query-buttons button:disabled {
+            cursor: wait;
+            opacity: 0.65;
+        }
+
+        .sql-query-status {
+            min-height: 1.4em;
+            color: #475569;
+        }
+
+        .sql-query-error {
+            color: #b91c1c;
+        }
+
+        .sql-query-output {
+            overflow-x: auto;
+        }
+
+        .sql-query-output table {
+            min-width: 100%;
+        }
+
+        .aggregate-report-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .aggregate-report-buttons button[aria-pressed="true"] {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .aggregate-report-controls {
+            display: flex;
+            align-items: end;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .aggregate-report-filter {
+            display: grid;
+            gap: 6px;
+            min-width: 220px;
+        }
+
+        .aggregate-report-filter input {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font: inherit;
+        }
+
+        .aggregate-report-status {
+            min-height: 1.4em;
+            color: #475569;
+        }
+
+        .aggregate-report-output {
+            overflow-x: auto;
+        }
+
+        .aggregate-report-output table {
+            min-width: 100%;
+        }
+
+        .aggregate-report-buttons button:disabled,
+        .aggregate-report-controls button:disabled {
+            cursor: wait;
+            opacity: 0.65;
+        }
+
         @media (max-width: 650px) {
             .form-grid {
                 grid-template-columns: 1fr;
@@ -364,12 +446,82 @@
         </div>
     </section>
 
+    <section class="panel sql-query-card" data-sql-query-table="companies">
+        <h2>SQL Queries for COMPANY</h2>
+        <p class="note">Select a predefined query to run against Oracle.</p>
+        <div class="sql-query-buttons" role="group"
+             aria-label="COMPANY SQL queries">
+            <button type="button" class="primary" data-query-id="simple">Simple SELECT</button>
+            <button type="button" class="primary" data-query-id="aggregate">Aggregate</button>
+            <button type="button" class="primary" data-query-id="complex">Complex SELECT</button>
+            <button type="button" class="primary" data-query-id="join">JOIN</button>
+            <button type="button" class="primary" data-query-id="nested">Nested Queries</button>
+            <button type="button" class="primary" data-query-id="functions">SQL Functions</button>
+        </div>
+        <p class="sql-query-status" role="status" aria-live="polite"></p>
+        <div class="sql-query-output" hidden>
+            <div class="table-wrap">
+                <table>
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <p class="note sql-query-empty" hidden>
+                No records were returned for this query.
+            </p>
+        </div>
+    </section>
+
+    <section class="panel aggregate-reports"
+             data-aggregate-table="companies">
+        <h2>Aggregate Reports for COMPANY</h2>
+        <p class="note">Select a report to see Oracle results. Use the filter to narrow the selected report.</p>
+        <div class="aggregate-report-buttons" role="group"
+             aria-label="COMPANY aggregate reports">
+            <button type="button" class="primary" data-report-id="byIndustry"
+                    data-filter-label="Filter by industry"
+                    data-filter-placeholder="Enter an industry type">Companies by Industry</button>
+            <button type="button" class="primary" data-report-id="byLocation"
+                    data-filter-label="Filter by location"
+                    data-filter-placeholder="Enter a company location">Companies by Location</button>
+            <button type="button" class="primary" data-report-id="jobsByCompany"
+                    data-filter-label="Filter by company ID"
+                    data-filter-placeholder="Enter a company ID">Jobs and Packages by Company</button>
+        </div>
+        <div class="aggregate-report-controls">
+            <label class="aggregate-report-filter">
+                <span data-report-filter-label>Choose a report to see its filter</span>
+                <input type="text" data-report-filter maxlength="100"
+                       aria-label="Aggregate report filter"
+                       placeholder="Choose a report first">
+            </label>
+            <button type="button" class="primary"
+                    data-report-filter-button data-report-action>Filter</button>
+            <button type="button" class="secondary"
+                    data-report-show-all data-report-action>Show All</button>
+            <button type="button" class="secondary"
+                    data-report-refresh data-report-action>Refresh</button>
+        </div>
+        <p class="aggregate-report-status" role="status"
+           aria-live="polite"></p>
+        <div class="aggregate-report-output" hidden>
+            <table>
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+            <p class="note aggregate-report-empty" hidden>
+                No records matched this aggregate report.
+            </p>
+        </div>
+    </section>
+
 </main>
 
 <footer>
     Placement Management System | Company Management
 </footer>
 
+<script src="placement-api.js?v=aggregate-reports-v1"></script>
 <script>
     let companies = [];
     let editingId = null;
